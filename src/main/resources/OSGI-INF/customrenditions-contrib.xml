@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.addons.customrenditions">
+
+  <require>org.nuxeo.ecm.platform.rendition.contrib</require>
+
+  <extension target="org.nuxeo.ecm.platform.rendition.service.RenditionService" point="renditionDefinitions">
+
+    <renditionDefinition name="zipTreeExportLazily" enabled="true" class="org.nuxeo.ecm.platform.rendition.lazy.AutomationLazyRenditionProvider">
+      <sourceDocumentModificationDatePropertyName>dc:issued</sourceDocumentModificationDatePropertyName>
+      <label>zipTreeExportLazily</label>
+      <icon>/icons/zip_tree_export.png</icon>
+      <contentType>application/zip</contentType>
+      <allowEmptyBlob>true</allowEmptyBlob>
+      <operationChain>zipTreeExportRendition</operationChain>
+      <storeByDefault>true</storeByDefault>
+      <variantPolicy>user</variantPolicy>
+      <filters>
+        <filter-id>folder</filter-id>
+      </filters>
+    </renditionDefinition>
+
+  </extension>
+  
+  <extension target="org.nuxeo.ecm.core.transientstore.TransientStorageComponent" point="store">
+
+    <store name="LazyRenditionCache">
+      <targetMaxSizeMB>-1</targetMaxSizeMB>
+      <absoluteMaxSizeMB>-1</absoluteMaxSizeMB>
+      <firstLevelTTL>10</firstLevelTTL>
+      <secondLevelTTL>0</secondLevelTTL>
+    </store>
+  </extension>
+
+</component>
